@@ -1,6 +1,6 @@
 ---
-host: default
-become: true
+- hosts: all
+  become: true
   tasks:
     - name: install packages
       package:
@@ -14,12 +14,15 @@ become: true
           - gnome-terminal
           - gnome-tweaks
           - gnome-shell
+          - gnome-shell-extensions
+          - gnome-tweak-tool
+        state: latest
     - name: update settings
       shell: |
-        gnome-extensions enable user-theme
+        gnome-extensions enable user-theme@gnome-shell-extensions.gcampax.github.com
         gnome-extensions enable ubuntu-dock@ubuntu.com
-        gnome-extensions enable dash-to-dock@micxgx.gmail.com
         gsettings set org.gnome.shell.extensions.dash-to-dock extend-height true
         gsettings set org.gnome.desktop.wm.preferences theme "Yaru"
-        gsettings set org.gnome.shell.extensions.user-theme name "Yaru"
+        gsettings set org.gnome.shell.extensions.user-theme name "Yaru-dark"
         gsettings set org.gnome.desktop.interface gtk-theme "Yaru"
+        gsettings set org.gnome.desktop.interface icon-theme "Yaru"
